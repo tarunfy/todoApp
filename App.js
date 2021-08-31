@@ -8,29 +8,50 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import Todo from "./component/Todo";
 export default function App() {
-  const [todos, setTodos] = useState(["task 1", "task 2", "task 3"]);
+  const [todos, setTodos] = useState([]);
+  const [task, setTask] = useState("");
+  const taskHandler = () => {
+    setTodos([...todos, task]);
+    setTask("");
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Today's Todos</Text>
-        <View style={styles.list}>
-          {todos.map((todo, index) => (
-            <Todo key={index} text={todo}></Todo>
-          ))}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container} onPress={Keyboard.dismiss}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Today's Todos</Text>
+          <View style={styles.list}>
+            {todos.map((todo, index) => (
+              <Todo
+                todos={todos}
+                setTodos={setTodos}
+                index={index}
+                text={todo}
+                key={index}
+              ></Todo>
+            ))}
+          </View>
         </View>
+        <View style={styles.footer}>
+          <TextInput
+            value={task}
+            onChangeText={(task) => setTask(task)}
+            style={styles.input}
+            placeholder="Type your todo..."
+          />
+          <TouchableOpacity onPress={taskHandler}>
+            <AntDesign name="pluscircle" color="black" size={50} />
+          </TouchableOpacity>
+        </View>
+        <StatusBar style="auto" />
       </View>
-      <View style={styles.footer}>
-        <TextInput style={styles.input} placeholder="Type your todo..." />
-        <TouchableOpacity onPress={() => console.log("add todo")}>
-          <AntDesign name="pluscircle" color="black" size={50} />
-        </TouchableOpacity>
-      </View>
-      <StatusBar style="auto" />
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -64,5 +85,6 @@ const styles = StyleSheet.create({
     borderColor: "#333",
     height: 50,
     width: "70%",
+    padding: 10,
   },
 });

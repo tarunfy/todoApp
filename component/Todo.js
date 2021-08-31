@@ -3,10 +3,15 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Todo(props) {
+  const deleteHandler = (index) => {
+    const arrayCopy = [...props.todos];
+    arrayCopy.splice(index, 1);
+    props.setTodos(arrayCopy);
+  };
   return (
     <View style={styles.item}>
       <Text style={styles.text}>{props.text}</Text>
-      <TouchableOpacity onPress={() => console.log("delete todo")}>
+      <TouchableOpacity onPress={() => deleteHandler(props.index)}>
         <MaterialCommunityIcons name="trash-can" size={24} />
       </TouchableOpacity>
     </View>
