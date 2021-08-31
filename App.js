@@ -12,26 +12,23 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import Todo from "./component/Todo";
 export default function App() {
-  const [todos, setTodos] = useState(["task 1", "task 2"]);
+  const [todos, setTodos] = useState(["task 1", "task 2", "task 3"]);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Today's Todos</Text>
         <View style={styles.list}>
           {todos.map((todo, index) => (
-            <TouchableOpacity key={index} onPress={() => console.log("gg")}>
-              <Todo text={todo}></Todo>
-            </TouchableOpacity>
+            <Todo key={index} text={todo}></Todo>
           ))}
         </View>
       </View>
       <View style={styles.footer}>
         <TextInput style={styles.input} placeholder="Type your todo..." />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => console.log("add todo")}>
           <AntDesign name="pluscircle" color="black" size={50} />
         </TouchableOpacity>
       </View>
-
       <StatusBar style="auto" />
     </View>
   );

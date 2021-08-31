@@ -6,7 +6,7 @@ function Todo(props) {
   return (
     <View style={styles.item}>
       <Text style={styles.text}>{props.text}</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => console.log("delete todo")}>
         <MaterialCommunityIcons name="trash-can" size={24} />
       </TouchableOpacity>
     </View>
